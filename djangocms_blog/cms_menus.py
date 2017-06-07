@@ -7,6 +7,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.urlresolvers import resolve
 from django.db.models.signals import post_delete, post_save
 from django.utils.translation import get_language_from_request, ugettext_lazy as _
+from django.db.models import Prefetch
 from menus.base import Modifier, NavigationNode
 from menus.menu_pool import menu_pool
 
