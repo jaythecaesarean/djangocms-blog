@@ -89,8 +89,13 @@ class BlogCategoryMenu(CMSAttachMenu):
                 categories = categories.filter(pk__in=used_categories)
             else:
                 categories = categories.active_translations(language).distinct()
-            categories = categories.order_by('parent__id', 'translations__name').\
-                select_related('app_config').prefetch_related('translations')
+            prefetch = Prefetch('translations', 
+                        queryset=categories.\
+                                    select_related('app_config').\
+                                    order_by('parent__id', 
+                                    'translations__name').distinct(), 
+                                    to_attr='app_config')
+            categories = categories.prefetch_related('prefetch')
             for category in categories:
                 node = NavigationNode(
                     category.name,
