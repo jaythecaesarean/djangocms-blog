@@ -96,7 +96,7 @@ class BlogCategoryMenu(CMSAttachMenu):
                                     order_by('parent__id', 
                                     'translations__name').distinct(), 
                                     to_attr='app_config')
-            categories = categories.prefetch_related('prefetch')
+            categories = categories.prefetch_related(prefetch)
             for category in categories:
                 node = NavigationNode(
                     category.name,
